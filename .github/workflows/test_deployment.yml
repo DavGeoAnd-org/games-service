@@ -1,4 +1,4 @@
-name: Test Deployment of javalin-template
+name: Test Deployment of games-service
 
 on:
   pull_request:
@@ -10,8 +10,8 @@ on:
 
 env:
   SERVICE_ENV: test
-  REGISTRY: dgandalcio
-  REPOSITORY: javalin-template
+  REGISTRY: davgeoand9
+  REPOSITORY: games-service
   AWS_REGION: us-east-1
   S3_BUCKET: homeproject-services-s3-bucket-396607284401
   ECS_TASK_DEFINITION_FILE: task-definition.json
@@ -55,7 +55,7 @@ jobs:
         id: push-image
         run: |
           docker build -t $REGISTRY/$REPOSITORY:${{ steps.get-version.outputs.version }}-${GITHUB_SHA::7} .
-          docker push $REGISTRY/$REPOSITORY:${{ steps.get-version.outputs.version }}-${GITHUB_SHA::7}
+          docker image push -a $REGISTRY/$REPOSITORY
           echo "image=$REGISTRY/$REPOSITORY:${{ steps.get-version.outputs.version }}-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
       - name: Configure AWS Creds
@@ -67,7 +67,7 @@ jobs:
 
       - name: Update .env in S3
         if: steps.changes.outputs.test == 'true'
-        run: aws s3 cp env_files/${{ env.SERVICE_ENV }}/ s3://${{ env.S3_BUCKET }}/${{ env.REGISTRY }}/${{ env.SERVICE_ENV }}/ --recursive
+        run: aws s3 cp env_files/${{ env.SERVICE_ENV }}/ s3://${{ env.S3_BUCKET }}/${{ env.REPOSITORY }}/${{ env.SERVICE_ENV }}/ --recursive
 
       - name: Download task definition
         run: |

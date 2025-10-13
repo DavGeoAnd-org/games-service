@@ -14,14 +14,10 @@ import static io.javalin.apibuilder.ApiBuilder.get;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AdminController {
     public static @NotNull EndpointGroup getAdminEndpoints() {
-        return () -> {
-            get("health", AdminController::health);
-        };
+        return () -> get("health", AdminController::health);
     }
 
     private static void health(@NotNull Context context) {
-        log.debug("Starting admin health request");
         context.status(HttpStatus.OK);
-        log.debug("Finished admin health request");
     }
 }

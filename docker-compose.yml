@@ -1,17 +1,55 @@
 services:
-  javalin-template:
-    image: local/javalin-template:latest
-    container_name: javalin-template
-    hostname: docker-local
+  games-service:
+    image: local/games-service:latest
+    container_name: games-service
+    hostname: games-service-local
     env_file:
       - env_files/local/service.env
       - env_files/local/otel.env
     ports:
-      - "10000:8080"
+      - "8080:8080"
     networks:
-      - develop-bridge-network
+      - games-service-bridge-network
+  otel-collector-service:
+    image: davgeoand9/otel-collector-service:latest
+    container_name: games-service-otel-collector-service
+    hostname: games-service-local
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "13133:13133"
+      - "55678:55678"
+      - "55679:55679"
+    networks:
+      - games-service-bridge-network
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    container_name: games-service-surrealdb
+    hostname: games-service-local
+    user: root
+    ports:
+      - "8000:8000"
+    networks:
+      - games-service-bridge-network
+    volumes:
+      - surreal-data:/data
+      - surreal-data:/logs
+    entrypoint: /surreal start --user root --pass root rocksdb:/data/mydatabase.db
+  surrealist:
+    image: surrealdb/surrealist:latest
+    container_name: games-service-surrealist
+    hostname: games-service-local
+    ports:
+      - "8001:8080"
+    networks:
+      - games-service-bridge-network
+    depends_on:
+      surrealdb:
+        condition: service_started
 
 networks:
-  develop-bridge-network:
-    name: develop-bridge
-    external: true
+  games-service-bridge-network:
+    name: games-service-bridge
+
+volumes:
+  surreal-data:
