@@ -3,7 +3,6 @@ package com.davgeoand.api;
 import com.davgeoand.api.controller.AdminController;
 import com.davgeoand.api.controller.TemtemController;
 import com.davgeoand.api.exception.TemtemException;
-import com.davgeoand.api.helper.Constants;
 import com.surrealdb.SurrealException;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.EndpointGroup;

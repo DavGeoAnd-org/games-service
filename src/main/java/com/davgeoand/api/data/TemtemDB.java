@@ -1,6 +1,6 @@
 package com.davgeoand.api.data;
 
-import com.davgeoand.api.helper.Constants;
+import com.davgeoand.api.Constants;
 import com.davgeoand.api.model.temtem.Battle;
 import com.davgeoand.api.model.temtem.Technique;
 import com.davgeoand.api.model.temtem.Temtem;
