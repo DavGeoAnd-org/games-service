@@ -6,7 +6,7 @@
 
     <groupId>com.davgeoand.api</groupId>
     <artifactId>games-service</artifactId>
-    <version>2025.10.0</version>
+    <version>2025.10.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
