@@ -1,12 +1,17 @@
 package com.davgeoand.api;
 
 import com.davgeoand.api.controller.AdminController;
+import com.davgeoand.api.controller.MffController;
+import com.davgeoand.api.controller.TemtemController;
+import com.davgeoand.api.exception.TemtemException;
 import com.davgeoand.api.monitor.event.ServiceEventHandler;
 import com.davgeoand.api.monitor.metric.ServiceMeterRegistry;
+import com.surrealdb.SurrealException;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.EndpointGroup;
 import io.javalin.config.JavalinConfig;
 import io.javalin.event.LifecycleEventListener;
+import io.javalin.http.HttpStatus;
 import io.javalin.micrometer.MicrometerPlugin;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +41,15 @@ public class JavalinService {
     @WithSpan
     private void exceptionHandlers(JavalinConfig javalinConfig) {
         log.info("Adding exception handlers");
+        javalinConfig.routes.exception(SurrealException.class, (e, context) -> {
+            context.result(e.getMessage());
+            context.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        });
+        javalinConfig.routes.exception(TemtemException.MissingException.class, (e, context) -> {
+            context.result(e.getMessage());
+            context.status(HttpStatus.NOT_FOUND);
+        });
+        log.info("Added exception handlers");
     }
 
     @WithSpan
@@ -53,7 +67,11 @@ public class JavalinService {
     @WithSpan
     private EndpointGroup routes() {
         log.info("Adding routes");
-        return () -> path("admin", AdminController.getAdminEndpoints());
+        return () -> {
+            path("admin", AdminController.getAdminEndpoints());
+            path("temtem", TemtemController.getTemtemEndpoints());
+            path("mff", MffController.getMffEndpoints());
+        };
     }
 
     public void start() {

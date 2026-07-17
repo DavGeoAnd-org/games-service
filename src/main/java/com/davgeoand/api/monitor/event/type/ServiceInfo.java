@@ -21,3 +21,4 @@ public class ServiceInfo extends Event {
                 .setTimestamp(time);
     }
 }
+
