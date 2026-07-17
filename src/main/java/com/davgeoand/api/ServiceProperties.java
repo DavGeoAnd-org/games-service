@@ -81,6 +81,10 @@ public class ServiceProperties {
         properties.put("event.handler.influxdb.token", StringUtils.defaultIfBlank(System.getenv("EVENT_HANDLER_INFLUXDB_TOKEN"), "apiv3_R87ShFdegjh_xFi8d1o57FN-kDS7r0WVAqz_jleqRi4zFeliXBZNqT8ILSno3H6qfvLXeMvU-bKuGYCQQFTsSQ"));
         properties.put("event.handler.influxdb.database", StringUtils.defaultIfBlank(System.getenv("EVENT_HANDLER_INFLUXDB_DATABASE"), "services"));
         properties.put("property.files", StringUtils.defaultIfBlank(System.getenv("PROPERTY_FILES"), "build.properties"));
+        properties.put("surrealdb.connect", StringUtils.defaultIfBlank(System.getenv("SURREALDB_CONNECT"), "http://localhost:8000"));
+        properties.put("surrealdb.namespace", StringUtils.defaultIfBlank(System.getenv("SURREALDB_NAMESPACE"), "games"));
+        properties.put("surrealdb.username", StringUtils.defaultIfBlank(System.getenv("SURREALDB_USERNAME"), "root"));
+        properties.put("surrealdb.password", StringUtils.defaultIfBlank(System.getenv("SURREALDB_PASSWORD"), "root"));
     }
 
     public static String getProperty(String property) {

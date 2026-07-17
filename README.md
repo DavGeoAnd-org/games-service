@@ -4,21 +4,12 @@
 
 * Create service from this games
 * Find all instances of games-service and update it to the repo name
+* Find all instances of template and update it to context / namespace value
 
 ## Local Project Changes
 
-* ServiceProperties.defaultProperties()
-  * Change "context.path" default value
-* env_file → {env} → otel.env
-  * Change "service.namespace" value
-* .run → ServiceRunner.run.xml
-  * Change "service.namespace" value
-* README.md
-  * Change "Path pattern" value 
-  * Change "Health check path" value
 * docker-compose.yml
-  * Change "test" endpoint in for healthcheck
-  * Change "ports" for nginx to not used port for external value
+    * Change "ports" for nginx to not used port for external value
 * Run custom compile,install maven command
 
 ## VPC
