@@ -1,9 +1,9 @@
-# javalin-template
+# games-service
 
 ## Create repo in GitHub
 
-* Create service from this template
-* Find all instances of javalin-template and update it to the repo name
+* Create service from this games
+* Find all instances of games-service and update it to the repo name
 
 ## Local Project Changes
 
@@ -85,8 +85,8 @@
 * Create
     * Bucket type: General purpose
     * Bucket name: homeproject-services-s3-bucket-396607284401
-    * Create folder → Folder name: javalin-template
-    * In javalin-template folder
+    * Create folder → Folder name: games-service
+    * In games-service folder
         * Create folder → Folder name: [test|prod]
         * add .env files
 
@@ -136,28 +136,28 @@
         * Subnets: enable only public
         * Security group: Security group ID of 'Security Group - for otel-collector'
 
-## ECS Task Definition - javalin-template (create manually before first deployment)
+## ECS Task Definition - games-service (create manually before first deployment)
 
 * Create
-    * Task definition family: javalin-template-[test|prod]
+    * Task definition family: games-service-[test|prod]
     * Launch type: AWS Fargate
     * Task size:
         * CPU: .25 -- Memory: .5
     * Container - 1:
-        * Name: javalin-template
+        * Name: games-service
         * Image URI: use 'latest' for initial setup
         * Port mappings:
             * Container port: 10000 -- Protocol: TCP -- App protocol: HTTP
         * Environment variables:
             * Add from file: .env files from homeproject-services-s3-bucket-396607284401
 
-## ECS Service - javalin-template (create manually before first deployment)
+## ECS Service - games-service (create manually before first deployment)
 
 * Create
     * Deploy from ecs task definition
     * Existing cluster: Name of 'ECS Cluster'
     * Compute options: Capacity provider strategy
-    * Service name: javalin-template
+    * Service name: games-service
     * Desired tasks: 0
     * Service Connect:
         * Enable Use Service Connect
@@ -174,7 +174,7 @@
         * Listener: Use an existing listener → 80:HTTP
         * Target group:
             * Create new target group
-            * Target group name: http-javalin-template-tg
-            * Path pattern: /template/*
+            * Target group name: http-games-service-tg
+            * Path pattern: /games/*
             * Evaluation order: 1 (or next available)
-            * Health check path: /template/admin/health
+            * Health check path: /games/admin/health

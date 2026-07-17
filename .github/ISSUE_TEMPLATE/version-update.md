@@ -1,6 +1,6 @@
 ---
 name: Version Update
-about: update javalin-template version
+about: update games-service version
 title: Version Update (Month Year)
 labels: aws, service
 assignees: davidgandalcio

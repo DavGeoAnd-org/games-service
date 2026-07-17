@@ -75,7 +75,7 @@ public class ServiceProperties {
     @WithSpan
     private static void defaultProperties() {
         properties.put("port", StringUtils.defaultIfBlank(System.getenv("PORT"), "10000"));
-        properties.put("context.path", StringUtils.defaultIfBlank(System.getenv("CONTEXT_PATH"), "/template"));
+        properties.put("context.path", StringUtils.defaultIfBlank(System.getenv("CONTEXT_PATH"), "/games"));
         properties.put("event.handler.type", StringUtils.defaultIfBlank(System.getenv("EVENT_HANDLER_TYPE"), "log"));
         properties.put("event.handler.influxdb.host", StringUtils.defaultIfBlank(System.getenv("EVENT_HANDLER_INFLUXDB_HOST"), "http://localhost:8181"));
         properties.put("event.handler.influxdb.token", StringUtils.defaultIfBlank(System.getenv("EVENT_HANDLER_INFLUXDB_TOKEN"), "apiv3_R87ShFdegjh_xFi8d1o57FN-kDS7r0WVAqz_jleqRi4zFeliXBZNqT8ILSno3H6qfvLXeMvU-bKuGYCQQFTsSQ"));

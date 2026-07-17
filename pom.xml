@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.davgeoand.api</groupId>
-    <artifactId>javalin-template</artifactId>
+    <artifactId>games-service</artifactId>
     <version>2026.7.0</version>
 
     <properties>
