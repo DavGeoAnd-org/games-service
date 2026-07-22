@@ -3,6 +3,7 @@ package com.davgeoand.api;
 import com.davgeoand.api.controller.AdminController;
 import com.davgeoand.api.controller.MffController;
 import com.davgeoand.api.controller.TemtemController;
+import com.davgeoand.api.exception.MffException;
 import com.davgeoand.api.exception.TemtemException;
 import com.davgeoand.api.monitor.event.ServiceEventHandler;
 import com.davgeoand.api.monitor.metric.ServiceMeterRegistry;
@@ -42,12 +43,24 @@ public class JavalinService {
     private void exceptionHandlers(JavalinConfig javalinConfig) {
         log.info("Adding exception handlers");
         javalinConfig.routes.exception(SurrealException.class, (e, context) -> {
+            log.error(e.getMessage());
             context.result(e.getMessage());
             context.status(HttpStatus.INTERNAL_SERVER_ERROR);
         });
         javalinConfig.routes.exception(TemtemException.MissingException.class, (e, context) -> {
+            log.warn(e.getMessage());
             context.result(e.getMessage());
             context.status(HttpStatus.NOT_FOUND);
+        });
+        javalinConfig.routes.exception(MffException.MissingException.class, (e, context) -> {
+            log.warn(e.getMessage());
+            context.result(e.getMessage());
+            context.status(HttpStatus.NOT_FOUND);
+        });
+        javalinConfig.routes.exception(MffException.MismatchException.class, (e, context) -> {
+            log.warn(e.getMessage());
+            context.result(e.getMessage());
+            context.status(HttpStatus.BAD_REQUEST);
         });
         log.info("Added exception handlers");
     }
@@ -69,8 +82,8 @@ public class JavalinService {
         log.info("Adding routes");
         return () -> {
             path("admin", AdminController.getAdminEndpoints());
-            path("temtem", TemtemController.getTemtemEndpoints());
             path("mff", MffController.getMffEndpoints());
+            path("temtem", TemtemController.getTemtemEndpoints());
         };
     }
 

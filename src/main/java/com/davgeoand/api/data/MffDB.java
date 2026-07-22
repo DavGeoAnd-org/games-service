@@ -48,22 +48,21 @@ public class MffDB {
     }
 
     @WithSpan(kind = SpanKind.CLIENT)
-    public Optional<Character> character(String characterId) {
-        log.debug("characterId - {}", characterId);
-        return driver.select(Character.class, new RecordId("characters", characterId));
-    }
-
-    @WithSpan(kind = SpanKind.CLIENT)
-    public Character updateCharacter(RecordId characterId, Character character) {
-        log.debug("characterId - {}", characterId);
-        log.debug("character - {}", character);
-        return driver.update(Character.class, characterId, UpType.CONTENT, character);
-    }
-
-    @WithSpan(kind = SpanKind.CLIENT)
     public Character addCharacter(Character character) {
-        log.debug("character - {}", character);
-        return driver.create(Character.class, new RecordId("characters", character.getName().toUpperCase()), character);
+        log.debug("character: {}", character);
+        return driver.create(Character.class, new RecordId("characters", character.getName()), character);
+    }
+
+    @WithSpan(kind = SpanKind.CLIENT)
+    public Optional<Character> character(String id) {
+        log.debug("id: {}", id);
+        return driver.select(Character.class, new RecordId("characters", id));
+    }
+
+    @WithSpan(kind = SpanKind.CLIENT)
+    public void updateCharacter(Character character) {
+        log.debug("character: {}", character);
+        driver.update(Character.class, character.getId(), UpType.CONTENT, character);
     }
 
     @WithSpan(kind = SpanKind.CLIENT)
@@ -78,15 +77,14 @@ public class MffDB {
     }
 
     @WithSpan(kind = SpanKind.CLIENT)
-    public Optional<Shadowland> shadowland(long shadowlandId) {
-        log.debug("shadowlandId - {}", shadowlandId);
-        return driver.select(Shadowland.class, new RecordId("shadowlands", shadowlandId));
+    public Optional<Shadowland> shadowland(long id) {
+        log.debug("id: {}", id);
+        return driver.select(Shadowland.class, new RecordId("shadowlands", id));
     }
 
     @WithSpan(kind = SpanKind.CLIENT)
-    public Shadowland updateShadowland(RecordId shadowlandId, Shadowland shadowland) {
-        log.debug("shadowlandId - {}", shadowlandId);
+    public void updateShadowland(Shadowland shadowland) {
         log.debug("shadowland - {}", shadowland);
-        return driver.update(Shadowland.class, shadowlandId, UpType.CONTENT, shadowland);
+        driver.update(Shadowland.class, shadowland.getId(), UpType.CONTENT, shadowland);
     }
 }

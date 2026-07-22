@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShadowlandFloorCharacters {
-    int floor;
+public class ShadowlandLevel {
+    int level = 1;
     List<String> characters = new ArrayList<>();
 }
