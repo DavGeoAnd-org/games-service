@@ -125,7 +125,7 @@ public class TemtemService {
                     }
                 }
             }
-            if(teamTemtemScore>0) teamSetup.addTeamTemtem(teamTemtem, teamTemtemScore);
+            if (teamTemtemScore > 0) teamSetup.addTeamTemtem(teamTemtem, teamTemtemScore);
         }
         log.debug("teamSetup - {}", teamSetup);
 

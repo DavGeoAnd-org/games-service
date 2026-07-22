@@ -21,6 +21,9 @@ public class Shadowland {
     @JsonDeserialize(using = RecordIdDeserializer.class)
     RecordId id = new RecordId("shadowlands", Instant.now().toEpochMilli());
     boolean current = true;
-    List<String> charactersUsed = new ArrayList<>();
-    int currentLevel = 1;
+    List<ShadowlandLevel> levels = new ArrayList<>();
+
+    public void addShadowlandLevel(ShadowlandLevel shadowlandLevel) {
+        levels.add(shadowlandLevel);
+    }
 }
