@@ -56,6 +56,7 @@ public class MffService {
         log.debug("existingCharacter: {}", existingCharacter);
         mffDB.updateCharacter(character);
         Map<String, Object> updateMap = existingCharacter.updateMap(character);
+        log.debug("updateMap: {}", updateMap);
         if (!updateMap.isEmpty())
             ServiceEventHandler.addEvent(new CharacterUpdate(character.getId(), updateMap));
     }

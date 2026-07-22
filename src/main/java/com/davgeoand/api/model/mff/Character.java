@@ -58,9 +58,9 @@ public class Character {
         if (fracture != other.fracture)
             updateMap.putAll(Map.of("fracture.old", fracture, "fracture.new", other.fracture));
         if (!abilities.equals(other.abilities))
-            updateMap.putAll(Map.of("abilities.old", abilities, "abilities.new", other.abilities));
+            updateMap.putAll(Map.of("abilities.old", abilities.toString(), "abilities.new", other.abilities.toString()));
         if (!skillElements.equals(other.skillElements))
-            updateMap.putAll(Map.of("skillElements.old", skillElements, "skillElements.new", other.skillElements));
+            updateMap.putAll(Map.of("skillElements.old", skillElements.toString(), "skillElements.new", other.skillElements.toString()));
         if (!tier.equals(other.tier))
             updateMap.putAll(Map.of("tier.old", tier.simpleToString(), "tier.new", other.tier.simpleToString()));
         if (!dispatch.equals(other.dispatch))
